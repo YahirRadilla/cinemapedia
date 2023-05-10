@@ -1,4 +1,4 @@
-import 'package:cinemapedia/infrastructure/models/moviedb/credits_responde.dart';
+import 'package:cinemapedia/infrastructure/models/moviedb/credits_response.dart';
 
 import '../../domain/entities/actor.dart';
 

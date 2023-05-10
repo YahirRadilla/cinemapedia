@@ -1,7 +1,7 @@
 import 'package:cinemapedia/domain/datasources/actors_datasources.dart';
 import 'package:cinemapedia/domain/entities/actor.dart';
 import 'package:cinemapedia/infrastructure/mappers/actor_mapper.dart';
-import 'package:cinemapedia/infrastructure/models/moviedb/credits_responde.dart';
+import 'package:cinemapedia/infrastructure/models/moviedb/credits_response.dart';
 import 'package:dio/dio.dart';
 
 import '../../config/constants/environment.dart';
