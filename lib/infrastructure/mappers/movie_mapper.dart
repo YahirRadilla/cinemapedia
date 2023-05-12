@@ -7,7 +7,7 @@ class MovieMapper {
       adult: movieDb.adult,
       backdropPath: (movieDb.backdropPath != '')
           ? 'https://image.tmdb.org/t/p/w500${movieDb.backdropPath}'
-          : 'https://pbs.twimg.com/profile_images/1243623122089041920/gVZIvphd_400x400.jpg',
+          : 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSqLk01yOS0nLVJdaOmZ-4LrAUklNeiBVpNDKQR8_IDyrdtE6Yww2woixd0S27ckXGTnLA&usqp=CAU',
       genreIds: movieDb.genreIds.map((e) => e.toString()).toList(),
       id: movieDb.id,
       originalLanguage: movieDb.originalLanguage,
@@ -16,8 +16,9 @@ class MovieMapper {
       popularity: movieDb.popularity,
       posterPath: (movieDb.posterPath != '')
           ? 'https://image.tmdb.org/t/p/w500${movieDb.posterPath}'
-          : 'no-poster',
-      releaseDate: movieDb.releaseDate,
+          : 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSqLk01yOS0nLVJdaOmZ-4LrAUklNeiBVpNDKQR8_IDyrdtE6Yww2woixd0S27ckXGTnLA&usqp=CAU',
+      releaseDate:
+          movieDb.releaseDate != null ? movieDb.releaseDate! : DateTime.now(),
       title: movieDb.title,
       video: movieDb.video,
       voteAverage: movieDb.voteAverage,
@@ -27,7 +28,7 @@ class MovieMapper {
       adult: movieDb.adult,
       backdropPath: (movieDb.backdropPath != '')
           ? 'https://image.tmdb.org/t/p/w500${movieDb.backdropPath}'
-          : 'https://pbs.twimg.com/profile_images/1243623122089041920/gVZIvphd_400x400.jpg',
+          : 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSqLk01yOS0nLVJdaOmZ-4LrAUklNeiBVpNDKQR8_IDyrdtE6Yww2woixd0S27ckXGTnLA&usqp=CAU',
       genreIds: movieDb.genres.map((e) => e.name).toList(),
       id: movieDb.id,
       originalLanguage: movieDb.originalLanguage,
@@ -36,7 +37,7 @@ class MovieMapper {
       popularity: movieDb.popularity,
       posterPath: (movieDb.posterPath != '')
           ? 'https://image.tmdb.org/t/p/w500${movieDb.posterPath}'
-          : 'https://pbs.twimg.com/profile_images/1243623122089041920/gVZIvphd_400x400.jpg',
+          : 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSqLk01yOS0nLVJdaOmZ-4LrAUklNeiBVpNDKQR8_IDyrdtE6Yww2woixd0S27ckXGTnLA&usqp=CAU',
       releaseDate: movieDb.releaseDate,
       title: movieDb.title,
       video: movieDb.video,
