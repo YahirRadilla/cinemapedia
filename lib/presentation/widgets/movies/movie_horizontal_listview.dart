@@ -24,17 +24,17 @@ class MovieHorizontalListview extends StatefulWidget {
 }
 
 class _MovieHorizontalListviewState extends State<MovieHorizontalListview> {
-  final scrollCotroller = ScrollController();
+  final scrollController = ScrollController();
 
   @override
   void initState() {
     super.initState();
 
-    scrollCotroller.addListener(() {
+    scrollController.addListener(() {
       if (widget.loadNextPage == null) return;
 
-      if (scrollCotroller.position.pixels + 200 >=
-          scrollCotroller.position.maxScrollExtent) {
+      if (scrollController.position.pixels + 200 >=
+          scrollController.position.maxScrollExtent) {
         widget.loadNextPage!();
       }
     });
@@ -42,7 +42,7 @@ class _MovieHorizontalListviewState extends State<MovieHorizontalListview> {
 
   @override
   void dispose() {
-    scrollCotroller.dispose();
+    scrollController.dispose();
     super.dispose();
   }
 
@@ -59,7 +59,7 @@ class _MovieHorizontalListviewState extends State<MovieHorizontalListview> {
             ),
           Expanded(
               child: ListView.builder(
-            controller: scrollCotroller,
+            controller: scrollController,
             itemCount: widget.movies.length,
             scrollDirection: Axis.horizontal,
             physics: const BouncingScrollPhysics(),

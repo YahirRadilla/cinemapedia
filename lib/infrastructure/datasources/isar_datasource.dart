@@ -11,8 +11,8 @@ class IsarDatasource extends LocalStorageDatasource {
   }
 
   Future<Isar> openDB() async {
-    final dir = await getApplicationDocumentsDirectory();
     if (Isar.instanceNames.isEmpty) {
+      final dir = await getApplicationDocumentsDirectory();
       return await Isar.open([MovieSchema],
           inspector: true, directory: dir.path);
     }
