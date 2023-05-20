@@ -2,51 +2,38 @@ import 'package:animated_notch_bottom_bar/animated_notch_bottom_bar/animated_not
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-class CustomBottomNavigation extends StatefulWidget {
+class CustomBottomNavigation extends StatelessWidget {
   final int currentIndex;
-  const CustomBottomNavigation({super.key, required this.currentIndex});
-
-  @override
-  State<CustomBottomNavigation> createState() => _CustomBottomNavigationState();
-}
-
-class _CustomBottomNavigationState extends State<CustomBottomNavigation> {
-  final PageController _pageController = PageController(initialPage: 0);
+  final PageController pageController;
+  const CustomBottomNavigation(
+      {super.key, required this.currentIndex, required this.pageController});
 
   void onItemTapped(BuildContext context, int index) {
+    pageController.animateToPage(
+      index,
+      duration: const Duration(milliseconds: 500),
+      curve: Curves.fastEaseInToSlowEaseOut,
+    );
+
     switch (index) {
       case 0:
-        return context.go('/home/$index');
+        return context.go('/home/0');
       case 1:
-        _pageController.animateToPage(1,
-            duration: const Duration(milliseconds: 500), curve: Curves.easeIn);
-        return context.go('/home/$index');
+        return context.go('/home/1');
       case 2:
-        return context.go('/home/$index');
+        return context.go('/home/2');
     }
-  }
-
-  @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    _pageController.dispose();
-    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     final colors = Theme.of(context).colorScheme;
+
     return AnimatedNotchBottomBar(
-      pageController: _pageController,
+      pageController: pageController,
       itemLabelStyle: const TextStyle(color: Colors.white, fontSize: 12),
-      showBlurBottomBar: true,
-      blurOpacity: 0.2,
-      blurFilterX: 5.0,
-      blurFilterY: 10.0,
+      notchColor: Colors.black45,
+      color: Colors.black87,
       bottomBarItems: [
         BottomBarItem(
           inActiveItem: Icon(
@@ -54,7 +41,7 @@ class _CustomBottomNavigationState extends State<CustomBottomNavigation> {
             color: colors.secondary,
           ),
           activeItem: Icon(
-            Icons.home_filled,
+            Icons.home_max,
             color: colors.primary,
           ),
           itemLabel: 'Inicio',
@@ -65,7 +52,7 @@ class _CustomBottomNavigationState extends State<CustomBottomNavigation> {
             color: colors.secondary,
           ),
           activeItem: Icon(
-            Icons.thumbs_up_down_outlined,
+            Icons.thumbs_up_down,
             color: colors.primary,
           ),
           itemLabel: 'Populares',
@@ -76,15 +63,13 @@ class _CustomBottomNavigationState extends State<CustomBottomNavigation> {
             color: colors.secondary,
           ),
           activeItem: Icon(
-            Icons.favorite_outline,
+            Icons.favorite,
             color: colors.primary,
           ),
           itemLabel: 'Favoritos',
         ),
       ],
       onTap: (value) {
-        print(value);
-
         onItemTapped(context, value);
       },
     );

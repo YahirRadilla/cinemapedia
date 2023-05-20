@@ -11,7 +11,8 @@ class PopularsView extends ConsumerStatefulWidget {
   PopularsViewState createState() => PopularsViewState();
 }
 
-class PopularsViewState extends ConsumerState<PopularsView> {
+class PopularsViewState extends ConsumerState<PopularsView>
+    with AutomaticKeepAliveClientMixin {
   bool isLoading = false;
   @override
   void initState() {
@@ -28,6 +29,7 @@ class PopularsViewState extends ConsumerState<PopularsView> {
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     final popularMovies = ref.watch(popularMoviesProvider);
 
     return Scaffold(
@@ -36,4 +38,7 @@ class PopularsViewState extends ConsumerState<PopularsView> {
       loadNextPage: loadNextPage,
     ));
   }
+
+  @override
+  bool get wantKeepAlive => true;
 }
