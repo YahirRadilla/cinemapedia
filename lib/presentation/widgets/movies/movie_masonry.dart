@@ -20,9 +20,8 @@ class _MovieMasonryState extends State<MovieMasonry> {
     super.initState();
     scrollController.addListener(() async {
       if (widget.loadNextPage == null) return;
-      if (scrollController.position.pixels + 100 >=
+      if (scrollController.position.pixels + 200 >=
           scrollController.position.maxScrollExtent) {
-        await Future.delayed(const Duration(milliseconds: 600));
         widget.loadNextPage!();
       }
     });
@@ -39,24 +38,21 @@ class _MovieMasonryState extends State<MovieMasonry> {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 10),
       child: MasonryGridView.count(
-        physics: const BouncingScrollPhysics(),
-        scrollDirection: Axis.vertical,
+        controller: scrollController,
         crossAxisCount: 3,
         mainAxisSpacing: 10,
         crossAxisSpacing: 10,
-        controller: scrollController,
         itemCount: widget.movies.length,
         itemBuilder: (context, index) {
           if (index == 1) {
             return Column(
               children: [
-                const SizedBox(
-                  height: 40,
-                ),
+                const SizedBox(height: 20),
                 MoviePosterLink(movie: widget.movies[index])
               ],
             );
           }
+
           return MoviePosterLink(movie: widget.movies[index]);
         },
       ),
