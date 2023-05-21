@@ -2,10 +2,13 @@ import 'package:cinemapedia/presentation/providers/storage/favorite_movies_provi
 import 'package:cinemapedia/presentation/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:go_router/go_router.dart';
 
 class FavoritesView extends ConsumerStatefulWidget {
-  const FavoritesView({super.key});
+  final PageController pageController;
+  const FavoritesView({
+    super.key,
+    required this.pageController,
+  });
 
   @override
   FavoritesViewState createState() => FavoritesViewState();
@@ -34,6 +37,12 @@ class FavoritesViewState extends ConsumerState<FavoritesView>
   }
 
   @override
+  void dispose() {
+    widget.pageController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     super.build(context);
     final favoriteMovies = ref.watch(favoriteMoviesProvider).values.toList();
@@ -52,13 +61,15 @@ class FavoritesViewState extends ConsumerState<FavoritesView>
             ),
             const Text(
               'No tienes películas favoritas',
-              style: TextStyle(fontSize: 20, color: Colors.black45),
+              style: TextStyle(fontSize: 20, color: Colors.white),
             ),
             const SizedBox(
               height: 20,
             ),
             FilledButton.tonal(
-                onPressed: () => context.go('/home/0'),
+                onPressed: () => widget.pageController.animateToPage(0,
+                    duration: const Duration(milliseconds: 300),
+                    curve: Curves.fastEaseInToSlowEaseOut),
                 child: const Text('Empieza a buscar'))
           ],
         ),

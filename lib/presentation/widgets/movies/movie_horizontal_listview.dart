@@ -48,28 +48,31 @@ class _MovieHorizontalListviewState extends State<MovieHorizontalListview> {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: 350,
-      child: Column(
-        children: [
-          if (widget.title != null || widget.subTitle != null)
-            _Title(
-              title: widget.title,
-              subTitle: widget.subTitle,
+    return widget.movies.isNotEmpty
+        ? SizedBox(
+            height: 350,
+            child: Column(
+              children: [
+                if ((widget.title != null || widget.subTitle != null))
+                  _Title(
+                    title: widget.title,
+                    subTitle: widget.subTitle,
+                  ),
+                Expanded(
+                    child: ListView.builder(
+                  controller: scrollController,
+                  itemCount: widget.movies.length,
+                  scrollDirection: Axis.horizontal,
+                  physics: const BouncingScrollPhysics(),
+                  itemBuilder: (context, index) {
+                    return FadeInRight(
+                        child: _Slide(movie: widget.movies[index]));
+                  },
+                ))
+              ],
             ),
-          Expanded(
-              child: ListView.builder(
-            controller: scrollController,
-            itemCount: widget.movies.length,
-            scrollDirection: Axis.horizontal,
-            physics: const BouncingScrollPhysics(),
-            itemBuilder: (context, index) {
-              return FadeInRight(child: _Slide(movie: widget.movies[index]));
-            },
-          ))
-        ],
-      ),
-    );
+          )
+        : const SizedBox();
   }
 }
 
@@ -149,7 +152,7 @@ class _Slide extends StatelessWidget {
                   width: 3,
                 ),
                 Text(
-                  '${movie.voteAverage}',
+                  HumanFormats.number(movie.voteAverage, 1),
                   style: textStyles.bodyMedium
                       ?.copyWith(color: Colors.yellow.shade800),
                 ),

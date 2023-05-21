@@ -15,10 +15,12 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen>
     with AutomaticKeepAliveClientMixin {
   late PageController pageController;
-  final viewRoutes = const <Widget>[
-    HomeView(),
-    PopularsView(),
-    FavoritesView()
+  late final viewRoutes = <Widget>[
+    const HomeView(),
+    const PopularsView(),
+    FavoritesView(
+      pageController: pageController,
+    ),
   ];
 
   @override

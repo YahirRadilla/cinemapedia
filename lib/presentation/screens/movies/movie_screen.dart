@@ -1,4 +1,5 @@
 import 'package:animate_do/animate_do.dart';
+import 'package:cinemapedia/presentation/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -124,7 +125,11 @@ class _MovieDetails extends StatelessWidget {
           ),
         ),
 
-        _ActorsByMovie(movieId: movie.id.toString())
+        _ActorsByMovie(movieId: movie.id.toString()),
+
+        VideosFromMovie(movieId: movie.id),
+
+        MovieRecommendationHorizontal(movieId: movie.id)
       ],
     );
   }
@@ -163,11 +168,15 @@ class _ActorsByMovie extends ConsumerWidget {
                 FadeInRight(
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(20),
-                    child: Image.network(
-                      actor.profilePath,
+                    child: FadeInImage(
                       height: 180,
                       width: 135,
                       fit: BoxFit.cover,
+                      image: NetworkImage(
+                        actor.profilePath,
+                      ),
+                      placeholder:
+                          const AssetImage('assets/loaders/bottle-loader.gif'),
                     ),
                   ),
                 ),
@@ -211,6 +220,7 @@ class _CustomSliverAppBar extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final scaffoldBackgroundColor = Theme.of(context).scaffoldBackgroundColor;
     final isFavoriteFuture = ref.watch(isFavoriteProvider(movie.id));
     final size = MediaQuery.of(context).size;
     return SliverAppBar(
@@ -243,7 +253,12 @@ class _CustomSliverAppBar extends ConsumerWidget {
             )
       ],
       flexibleSpace: FlexibleSpaceBar(
-        titlePadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+        titlePadding: const EdgeInsets.only(bottom: 0),
+        title: _CustomGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            stops: const [0.7, 1.0],
+            colors: [Colors.transparent, scaffoldBackgroundColor]),
         /* title: Text(
           movie.title,
           style: const TextStyle(fontSize: 20),
@@ -255,11 +270,6 @@ class _CustomSliverAppBar extends ConsumerWidget {
               child: Image.network(
                 movie.posterPath,
                 fit: BoxFit.cover,
-                loadingBuilder: (context, child, loadingProgress) {
-                  if (loadingProgress != null) return const SizedBox();
-
-                  return FadeIn(child: child);
-                },
               ),
             ),
             const _CustomGradient(

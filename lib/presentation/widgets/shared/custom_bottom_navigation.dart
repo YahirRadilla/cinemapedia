@@ -1,6 +1,5 @@
 import 'package:animated_notch_bottom_bar/animated_notch_bottom_bar/animated_notch_bottom_bar.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 
 class CustomBottomNavigation extends StatelessWidget {
   final int currentIndex;
@@ -14,15 +13,6 @@ class CustomBottomNavigation extends StatelessWidget {
       duration: const Duration(milliseconds: 500),
       curve: Curves.fastEaseInToSlowEaseOut,
     );
-
-    switch (index) {
-      case 0:
-        return context.go('/home/0');
-      case 1:
-        return context.go('/home/1');
-      case 2:
-        return context.go('/home/2');
-    }
   }
 
   @override
